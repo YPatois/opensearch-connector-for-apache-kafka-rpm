@@ -1,5 +1,7 @@
 %define rel_ver 3.1.1
 %define pkg_ver 1
+%define _noarch_libdir /usr/lib
+
 Name:           opensearch-connector-for-apache-kafka
 Version:        %{rel_ver}
 Release:        %{pkg_ver}%{?dist}
@@ -37,7 +39,7 @@ Aiven's OpenSearch Connector for Apache Kafka
 %install
 rm -rf %{buildroot}
 install -p -d %{buildroot}%{_ocfak_noarch_libdir}
-cp -a %{_ocfak_bi_dir}*.jar %{buildroot}%{_ocfak_noarch_libdir}
+cp -a %{_ocfak_bi_dir}/*.jar %{buildroot}%{_ocfak_noarch_libdir}
 
 install -p -d %{buildroot}%{_sysconfdir}/kafka/opensearch-connector-for-apache-kafka
 install -p -D -m 644 %{_ocfak_bi_dir}/config/quickstart-elasticsearch.properties %{buildroot}%{_sysconfdir}/kafka/opensearch-connector-for-apache-kafka/quickstart-elasticsearch.properties
@@ -47,7 +49,7 @@ rm -rf %{buildroot}
 
 %files
 %defattr(-,root,root,-)
-%doc LICENSE README.md version licenses
+%doc LICENSE README.md version.txt licenses
 %{_ocfak_noarch_libdir}
 %config(noreplace) %{_sysconfdir}/kafka/opensearch-connector-for-apache-kafka
 
